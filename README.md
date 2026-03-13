@@ -250,8 +250,11 @@ Please cite the dataset source and the TabPFN model:
 
 ## Contact
 
-Corresponding author information is available in the published version
-of the paper.
+Tianlong Wang
+
+- Ocean College, Zhejiang University, Zhoushan 316000, China
+- School of Civil and Environmental Engineering, Nanyang Technological University, Singapore 637616, Singapore
+- Contact: tianlong_wang@zju.edu.cn
 
 <!--
 Uncomment after acceptance:
