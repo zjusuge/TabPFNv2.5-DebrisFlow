@@ -16,3 +16,7 @@ Scientific results were not retrained or selected anew for this repository updat
 ## 2026-09-16 confirmed figures
 
 Updated the 17 delivered JPG files and added a portable current-layout plotting entry point. Restored original-style arrangements, moved legends inside panels, aligned panel labels and reduced panel spacing. Saved model results and statistical protocols remain unchanged.
+
+## English repository cleanup
+
+Translated remaining plotting comments, docstrings and console messages. Renamed Chinese source files and the source-value audit CSV, updated their references, and translated Office template metadata. Scientific inputs, worksheet cells, figures and model results are unchanged.

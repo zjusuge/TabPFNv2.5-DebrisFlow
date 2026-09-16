@@ -1,19 +1,19 @@
 """
-Cell 4 ── 定义可复用的模型对比函数（供 Fig 4 和 Fig 6 调用）
-         ★ 新增 panel_a_info_ha 参数，控制信息框水平对齐
+Cell 4 ── Define a reusable model-comparison function for Fig 4 and Fig 6
+         ★ Add panel_a_info_ha to control horizontal alignment of the information box
 """
 
 
 def plot_model_comparison(r2_df, wilcoxon_df, set_label, fig_name,
                           panel_a_info_pos=(0.98, 0.97),
                           panel_a_info_va="top",
-                          panel_a_info_ha="right",  # ★ 新增参数
+                          panel_a_info_ha="right",  # ★ New parameter
                           panel_c_legend_loc="lower right",
                           panel_d_legend_loc="upper left"):
     """
     4-panel model comparison figure (CNS-level).
     """
-    # ── 准备每折数据 ──
+    # ── Prepare fold-level data ──
     model_r2 = {}
     model_r2["TabPFN"] = r2_df["TabPFN"].dropna().values
     for m in BASELINES:
@@ -61,7 +61,7 @@ def plot_model_comparison(r2_df, wilcoxon_df, set_label, fig_name,
                        ha="right")
     ax.set_ylabel("R² (repeated nested CV)")
 
-    # ★ 使用参数化位置 + ha
+    # ★ Use configurable position and horizontal alignment
     ax.set_title(f"{set_label}: TabPFN mean R² = {tabpfn_mean:.4f}", fontsize=13, pad=12)
 
     ax.text(0.02, 0.05, "(a)", transform=ax.transAxes,
@@ -71,7 +71,7 @@ def plot_model_comparison(r2_df, wilcoxon_df, set_label, fig_name,
             verticalalignment="bottom", horizontalalignment="left", zorder=10)
 
     # ═══════════════════════════════════════════════════
-    # (b) ΔR² 水平条形图
+    # (b) ΔR² Horizontal bar chart
     # ═══════════════════════════════════════════════════
     ax = axes[0, 1]
     wdf = wilcoxon_df.sort_values("mean_dR2",
@@ -97,7 +97,7 @@ def plot_model_comparison(r2_df, wilcoxon_df, set_label, fig_name,
     PL(ax, "(b)")
 
     # ═══════════════════════════════════════════════════
-    # (c) 效应量 + 显著性
+    # (c) Effect sizes and significance
     # ═══════════════════════════════════════════════════
     ax = axes[1, 0]
     wdf_c = wilcoxon_df.sort_values("effect_r",
@@ -121,7 +121,7 @@ def plot_model_comparison(r2_df, wilcoxon_df, set_label, fig_name,
     PL(ax, "(c)")
 
     # ═══════════════════════════════════════════════════
-    # (d) 每折散点：TabPFN vs 最优 baseline
+    # (d) Fold-level scatter: TabPFN versus the best baseline
     # ═══════════════════════════════════════════════════
     ax = axes[1, 1]
     ref = model_r2["TabPFN"]
@@ -174,4 +174,4 @@ def plot_model_comparison(r2_df, wilcoxon_df, set_label, fig_name,
     plt.close("all")
 
 
-print("✅ plot_model_comparison() 已定义（新增 panel_a_info_ha）。")
+print("✅ plot_model_comparison() defined with the panel_a_info_ha parameter.")

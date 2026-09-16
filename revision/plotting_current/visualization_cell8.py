@@ -1,6 +1,6 @@
 """
 Cell 9 ── Fig 7: Feature Ablation
-         ★ 子图 (b) Mean Δ 标签 → 右下方
+         ★ Panel (b) Mean Δ label at the lower right
 """
 
 comp = comp_AB.copy()
@@ -13,7 +13,7 @@ mean_delta = comp["Delta_AB"].mean()
 
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
-# ═══════ (a) 哑铃图 ═══════
+# ═══════ (a) Dumbbell plot ═══════
 ax = axes[0, 0]
 n_m = len(comp)
 y_pos = np.arange(n_m)
@@ -37,7 +37,7 @@ ax.legend(
 ax.invert_yaxis()
 PL(ax, "(a)")
 
-# ═══════ (b) ΔR² 条形图  ★ Mean Δ → 右下方 ═══════
+# ═══════ (b) ΔR² bar chart; Mean Δ at the lower right ═══════
 ax = axes[0, 1]
 comp_b = comp.sort_values("Delta_AB",
                           ascending=True).reset_index(drop=True)
@@ -54,7 +54,7 @@ for i, row in comp_b.iterrows():
     ax.text(row["Delta_AB"] + 0.003, i,
             f"{sign}{row['Delta_AB']:.4f}", va="center",
             fontsize=11.5, fontweight="bold")
-# ★ Mean Δ 从右上方 → 右下方
+# ★ Move Mean Δ from the upper right to the lower right
 ax.text(0.97, 0.05,  # ★ 0.97 → 0.05
         f"Mean Δ = {mean_delta:+.4f}",
         transform=ax.transAxes, color="#0072B2", fontsize=12.5,
@@ -63,7 +63,7 @@ ax.text(0.97, 0.05,  # ★ 0.97 → 0.05
                   ec="#0072B2", lw=0.5))
 PL(ax, "(b)")
 
-# ═══════ (c) R²(A) vs R²(B) 散点 ═══════
+# ═══════ (c) R²(A) versus R²(B) scatter ═══════
 ax = axes[1, 0]
 all_r2 = pd.concat([comp["R2_A"], comp["R2_B"]])
 pad = 0.08
@@ -110,7 +110,7 @@ ax.text(0.65, 0.15, "Set A > Set B", transform=ax.transAxes,
         style="italic", fontweight="bold")
 PL(ax, "(c)")
 
-# ═══════ (d) 相对 R² 下降百分比 ═══════
+# ═══════ (d) Relative R² decrease in percent ═══════
 ax = axes[1, 1]
 comp_d = (comp.dropna(subset=["R2_rel_drop"])
           .sort_values("R2_rel_drop", ascending=True)

@@ -36,7 +36,7 @@ SEED = 42
 
 assert CACHE_FILE.exists(), f'Cache file not found:\n{CACHE_FILE}\nPlease run Part 1 first.'
 
-# 清理同名旧图，避免混淆
+# Remove old figures with the same names to avoid confusion
 for old_name in [
     'Fig10_Global_SHAP_Attribution.jpg',
     'Fig11_Local_and_Scale_Dependent_SHAP.jpg'
@@ -396,7 +396,7 @@ def _true_waterfall(ax, idx, tag, group_label):
         running = running + sv[j]
         ends[k] = running
 
-    # 预测值理论上应与最后一个累计值一致；这里用累计值作图，避免数值显示不一致
+    # The prediction should equal the final cumulative value; plot that cumulative value for consistent numerical display
     final_cum = float(ends[-1])
 
     all_x = np.concatenate([[base_i], starts, ends, [pred_log]])
@@ -406,12 +406,12 @@ def _true_waterfall(ax, idx, tag, group_label):
     x_max = all_x.max() + x_pad
     ax.set_xlim(x_min, x_max)
 
-    # 背景条纹
+    # Background bands
     for i, yy in enumerate(y_pos):
         if i % 2 == 0:
             ax.axhspan(yy - 0.42, yy + 0.42, color='#F7F7F7', zorder=0)
 
-    # 基线与预测线
+    # Baseline and prediction lines
     ax.axvline(base_i, color='#616161', lw=0.9, ls='--', zorder=1)
     ax.axvline(final_cum, color='#424242', lw=0.9, ls=':', zorder=1)
 
@@ -430,12 +430,12 @@ def _true_waterfall(ax, idx, tag, group_label):
             color=color, edgecolor='white', lw=0.7, alpha=0.92, zorder=3
         )
 
-        # 连接线
+        # Connector lines
         if k < len(order) - 1:
             ax.plot([e, e], [y_pos[k] - 0.28, y_pos[k + 1] + 0.28],
                     color='#9E9E9E', lw=0.85, zorder=2)
 
-        # 增量标注
+        # Increment annotations
         delta_txt = f'{delta:+.3f}'
         if width >= label_threshold:
             ax.text(
@@ -460,7 +460,7 @@ def _true_waterfall(ax, idx, tag, group_label):
                     fontsize=10.4, fontweight='bold', color='#444444', zorder=5
                 )
 
-    # y 轴标签：变量符号 + 实际值
+    # Y-axis labels: variable symbols and observed values
     y_labels = []
     for j in order:
         sym, unit = SYMUNIT[FEAT_LABELS[j]]
@@ -474,7 +474,7 @@ def _true_waterfall(ax, idx, tag, group_label):
     ax.set_xlabel(r'Model output, log$_{10}(V_0)$', fontsize=13)
     ax.set_axisbelow(True)
 
-    # 基线信息
+    # Baseline information
     ax.text(
         0.02, 0.03,
         f'Baseline $E[f(x)]$ = {base_i:.2f}',
@@ -485,7 +485,7 @@ def _true_waterfall(ax, idx, tag, group_label):
         zorder=50
     )
 
-    # 样本信息
+    # Sample information
     info_text = (
         f'{group_label} representative catchment\n'
         f'Sample ID = {sid}\n'
@@ -711,7 +711,7 @@ cb_d = fig1.colorbar(im_d, ax=ax_d, fraction=0.046, pad=0.04, aspect=22)
 cb_d.set_label('Pearson correlation coefficient', fontsize=12, rotation=90, labelpad=14)
 cb_d.outline.set_linewidth(0.5)
 
-# 不把说明文字压在矩阵上，改放在外侧，避免遮挡数值
+# Place explanatory text outside the matrix to keep the values visible
 ax_d.text(
     0.99, 1.05, 'Upper triangle: attribution correlation',
     transform=ax_d.transAxes, ha='right', va='bottom',

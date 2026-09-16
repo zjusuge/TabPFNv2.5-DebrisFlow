@@ -71,7 +71,7 @@ def save(fig,name=None,legacy=False):
 def SAVE_FIG(fig,unused):save(fig,legacy=True)
 
 def adapted(cell,transform=None):
-    src=(HERE/f'绘图可视化_cell{cell}.py').read_text(encoding='utf-8')
+    src=(HERE/f'visualization_cell{cell}.py').read_text(encoding='utf-8')
     if transform:src=transform(src)
     src=src.replace('plt.show()','plt.close("all")')
     (SRC/f'original_cell{cell}_adapted.py').write_text(src,encoding='utf-8')
@@ -129,7 +129,7 @@ def ablation_learning():
         s=s.replace('PL(ax, "(d)")','ax.set_title("Descriptive margin over the highest baseline mean", fontsize=11, pad=14)\nPL(ax, "(d)")')
         return s
     # Preserve the original four evidence roles and separate the extreme MLP range.
-    (SRC/'original_cell9_adapted.py').write_text(learning((HERE/'绘图可视化_cell9.py').read_text(encoding='utf-8')),encoding='utf-8')
+    (SRC/'original_cell9_adapted.py').write_text(learning((HERE/'visualization_cell9.py').read_text(encoding='utf-8')),encoding='utf-8')
     learning_final()
 
 def learning_final():

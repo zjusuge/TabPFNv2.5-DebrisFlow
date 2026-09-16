@@ -18,7 +18,7 @@ def keep_diff(name,old,new):
 
 def edit_schematics():
     from lxml import etree
-    src=ROOT/'A投稿期刊/论文的图/PPT绘图/演示文稿1.pptx'
+    src=ROOT/'plotting/Figures_3_4_original_design_revised.pptx'
     out=SRC/'Figures_3_4_original_design_revised.pptx'
     changes={'Zero-shot inference':'In-context inference',
         'Cross-validated conformal calibration':'Residual-based prediction intervals',
@@ -49,7 +49,7 @@ def edit_schematics():
     print('Original schematic layouts preserved; labels updated',flush=True)
 
 def uq():
-    old=(HERE/'不确定性计算及可视化_cell1.py').read_text(encoding='utf-8')
+    old=(HERE/'uncertainty_plot_cell1.py').read_text(encoding='utf-8')
     s=old
     start=s.index('DATA_DIR =');end=s.index('FILE_SAMPLES =',start)
     s=s[:start]+f'DATA_DIR = Path({str(base.BASE)!r})\nUQ_DIR = DATA_DIR / "UQ_conformal_results"\n'+s[end:]
@@ -101,7 +101,7 @@ ax.set_title('All 600 outer-test predictions per level', fontsize=14)
     exec(compile(s,'original_UQ_adapted.py','exec'),{'base':base})
 
 def korea():
-    old=(HERE/'数据试验_cell2.py').read_text(encoding='utf-8')
+    old=(HERE/'korea_plot_cell2.py').read_text(encoding='utf-8')
     s=old
     start=s.index('models_all =');end=s.index('#  COLOUR PALETTE',start)
     # Keep downstream variable names so original plotting panels remain reusable.

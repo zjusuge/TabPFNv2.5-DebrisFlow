@@ -1,6 +1,6 @@
 """
 Cell 10 ── Fig 8: Learning Curves
-           ★ 子图 (c) 编号标签 → 右下方
+           ★ Panel (c) label at the lower right
 """
 
 LC_MODELS = ["TabPFN", "RF", "XGBoost", "SVR", "Ridge", "GBR", "MLP"]
@@ -17,7 +17,7 @@ LC_STYLES = {
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
 # ═══════════════════════════════════════════════════════
-# (a) & (b) 学习曲线：Set A / Set B
+# (a) & (b) Learning curves: Set A / Set B
 # ═══════════════════════════════════════════════════════
 CLIP = -0.5
 
@@ -55,7 +55,7 @@ for ci, (lc_sum, label) in enumerate([
     PL(ax, f"({'a' if ci == 0 else 'b'})")
 
 # ═══════════════════════════════════════════════════════
-# (c) 小样本 vs 大样本 R² 对比 (Set A)  ★ (c) 标签 → 右下方
+# (c) Small-sample versus large-sample R² comparison (Set A); panel (c) label at the lower right
 # ═══════════════════════════════════════════════════════
 ax = axes[1, 0]
 n_small = int(lc_sum_A["n_train"].min())
@@ -120,7 +120,7 @@ y_lo = min(min(all_vals) - 0.25, -0.15)
 y_hi = max(all_vals) + 0.18
 ax.set_ylim(y_lo, y_hi)
 
-# ★ (c) 标签从左上方 → 右下方
+# ★ Move the panel (c) label from the upper left to the lower right
 ax.text(0.98, 0.05, "(c)", transform=ax.transAxes,
         fontsize=17, fontweight="bold",
         bbox=dict(boxstyle="round,pad=0.25", facecolor="white",
@@ -128,7 +128,7 @@ ax.text(0.98, 0.05, "(c)", transform=ax.transAxes,
         verticalalignment="bottom", horizontalalignment="right", zorder=10)
 
 # ═══════════════════════════════════════════════════════
-# (d) TabPFN 相对最优 baseline 的优势曲线
+# (d) TabPFN performance margin over the best baseline
 # ═══════════════════════════════════════════════════════
 ax = axes[1, 1]
 
@@ -171,7 +171,7 @@ ax.text(0.97, 0.03, "Below 0 → baseline outperforms TabPFN",
 PL(ax, "(d)")
 
 # ═══════════════════════════════════════════════════════
-# 全局收尾
+# Finalize the figure
 # ═══════════════════════════════════════════════════════
 ensure_arial(axes.flat)
 plt.tight_layout(pad=1.8)

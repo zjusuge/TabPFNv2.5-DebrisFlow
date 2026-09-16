@@ -1,6 +1,6 @@
 """
 Cell 7 ── Fig 5: Predicted vs Observed + Residual Diagnostics
-         ★ 全局字号 +2pt 与 Fig9 v3.3 对齐
+         ★ Increase global font sizes by 2 pt to match Fig9 v3.3
 """
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 
@@ -27,7 +27,7 @@ for ci, (pred, name, clr, bg, ec) in enumerate(models_info):
     r2, rmse, mae = _metrics(obs, pred)
     resid = pred - obs
 
-    # ── 上行：预测 vs 观测 ──
+    # ── Top row: predictions versus observations ──
     ax = axes[0, ci]
     ax.scatter(obs, pred, c=clr, s=48, alpha=0.7,
                edgecolors="white", lw=0.5, zorder=3)
@@ -61,7 +61,7 @@ for ci, (pred, name, clr, bg, ec) in enumerate(models_info):
               edgecolor="lightgray", bbox_to_anchor=(0.0, 0.72))
     PL(ax, f"({'a' if ci == 0 else 'b'})")
 
-    # ── 下行：残差诊断 ──
+    # ── Bottom row: residual diagnostics ──
     ax = axes[1, ci]
     ax.scatter(obs, resid, c=clr, s=48, alpha=0.7,
                edgecolors="white", lw=0.5, zorder=3)

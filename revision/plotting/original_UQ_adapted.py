@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════
-part2 不确定性可视化
+Part 2 uncertainty visualization
 Fig. 9 — Cross-Conformal Prediction Uncertainty Quantification
 TabPFN · Debris-Flow Volume · Longmenshan Fault Zone
 ═══════════════════════════════════════════════════════════════════════════
-v3.3 字号放大版:
-  全局 rcParams 及逐面板字号统一提升 +2pt
+v3.3 enlarged-font version:
+  Increase global rcParams and panel font sizes by 2 pt
 ═══════════════════════════════════════════════════════════════════════════
 """
 
@@ -47,7 +47,7 @@ NEST_ALPHAS = [0.50, 0.30, 0.10, 0.05, 0.01]
 NEST_LABELS = ["50%", "70%", "90%", "95%", "99%"]
 
 # ═══════════════════════════════════════════════════════════════
-# 2.  CNS-LEVEL FIGURE STYLE  ★ 全局字号 +2pt
+# 2.  CNS-LEVEL FIGURE STYLE  ★ Increase global font sizes by 2 pt
 # ═══════════════════════════════════════════════════════════════
 plt.style.use('default')
 plt.rcParams.update({

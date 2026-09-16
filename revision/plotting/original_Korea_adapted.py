@@ -1,5 +1,5 @@
 """
-图12 绘图可视化 — v2 字号统一版
+Figure 12 visualization — v2 with consistent font sizes
 Fig. 12 — Cross-regional validation on the South Korean debris-flow dataset
 Publication-quality 2×2 figure  (CNS-level standard)
 ──────────────────────────────────────────

@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════
-part2 不确定性可视化
+Part 2 uncertainty visualization
 Fig. 9 — Cross-Conformal Prediction Uncertainty Quantification
 TabPFN · Debris-Flow Volume · Longmenshan Fault Zone
 ═══════════════════════════════════════════════════════════════════════════
-v3.3 字号放大版:
-  全局 rcParams 及逐面板字号统一提升 +2pt
+v3.3 enlarged-font version:
+  Increase global rcParams and panel font sizes by 2 pt
 ═══════════════════════════════════════════════════════════════════════════
 """
 
@@ -51,7 +51,7 @@ NEST_ALPHAS = [0.50, 0.30, 0.10, 0.05, 0.01]
 NEST_LABELS = ["50%", "70%", "90%", "95%", "99%"]
 
 # ═══════════════════════════════════════════════════════════════
-# 2.  CNS-LEVEL FIGURE STYLE  ★ 全局字号 +2pt
+# 2.  CNS-LEVEL FIGURE STYLE  ★ Increase global font sizes by 2 pt
 # ═══════════════════════════════════════════════════════════════
 plt.style.use('default')
 plt.rcParams.update({
@@ -515,7 +515,7 @@ print(f"  ✅  (b) Calibration: {len(all_alphas)} levels")
 print(f"  ✅  (c) Violin: {labels_c[0]} → {labels_c[-1]}")
 print(f"  ✅  (d) Fan-chart: {len(PICK_IDS)} catchments")
 print(f"{'─' * 70}")
-print(f"  🔧  v3.2→v3.3 改动 (全局 +2pt):")
+print(f"  🔧  v3.2→v3.3 changes (global +2 pt):")
 print(f"      rcParams font.size      12→14")
 print(f"      rcParams axes.labelsize  13→15")
 print(f"      rcParams axes.titlesize  13→15")
@@ -525,5 +525,5 @@ print(f"      (a) info box 11→13, legend 10→12")
 print(f"      (b) legend 10→12")
 print(f"      (c) annotation 11→13")
 print(f"      (d) y-tick 10→12, legend 10→12")
-print(f"      §7 panel tags 15→17, tick覆写 11→13")
+print(f"      §7 panel tags 15→17, tick overrides 11→13")
 print(f"{'═' * 70}\n  ✅  Done.\n")

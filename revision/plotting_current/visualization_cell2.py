@@ -4,7 +4,7 @@ Cell 3 ── Fig 2: Feature Analysis (Spearman heatmap, violin, distribution, s
 
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
-# ═══════ (a) Spearman 相关性热力图 ═══════
+# ═══════ (a) Spearman correlation heatmap ═══════
 ax = axes[0, 0]
 
 corr_cols = ["A_km2", "H_m", "L_km", "D_km", "J_permille",
@@ -44,7 +44,7 @@ cbar.set_label("Spearman ρ", fontsize=12)
 cbar.ax.tick_params(labelsize=10)
 PL(ax, "(a)")
 
-# ═══════ (b) 小提琴 + 箱线图 (z-score) ═══════
+# ═══════ (b) Violin plots and boxplots (z-score) ═══════
 ax = axes[0, 1]
 
 feat_violin = ["V_landslide_1e4m3", "A_km2", "H_m",
@@ -92,7 +92,7 @@ ax.legend(
     edgecolor="lightgray")
 PL(ax, "(b)")
 
-# ═══════ (c) log₁₀(V₀) 概率分布 —— ★★ 修复图例与(c)标签重叠 ═══════
+# ═══════ (c) log₁₀(V₀) probability distribution; prevent overlap between the legend and panel (c) label ═══════
 ax = axes[1, 0]
 
 lv = df_raw["log_V0"].values
@@ -109,7 +109,7 @@ ax.axvline(np.median(lv), color="#0072B2", ls="-.", lw=1.5,
 ax.set_xlabel(r"log$_{10}$($V_0$)  [$V_0$ in ×10$^4$ m³]")
 ax.set_ylabel("Probability density")
 
-# ★★ 关键修改：bbox_to_anchor 将图例下压到 (c) 标签下方，彻底避免重叠
+# ★★ Use bbox_to_anchor to place the legend below the panel (c) label without overlap
 ax.legend(fontsize=10, loc="upper left", framealpha=0.95,
           edgecolor="lightgray",
           bbox_to_anchor=(0.12, 0.88))
@@ -125,7 +125,7 @@ ax.text(0.97, 0.97, stxt, transform=ax.transAxes, fontsize=10,
                   alpha=0.95, edgecolor="gray", linewidth=0.5))
 PL(ax, "(c)")
 
-# ═══════ (d) V_land vs log₁₀(V₀) 散点图 ═══════
+# ═══════ (d) V_land vs log₁₀(V₀) scatterplot ═══════
 ax = axes[1, 1]
 
 vl = df_raw["V_landslide_1e4m3"].values
