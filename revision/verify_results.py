@@ -90,7 +90,7 @@ def verify():
     assert np.allclose(source[numeric],workbook[numeric])
     manifest=ROOT/'SHA256.json'
     if manifest.exists():
-        entries=json.loads(manifest.read_text())
+        entries=json.loads(manifest.read_text(encoding='utf-8'))
         for name,expected in entries.items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected,name
         counts['checksum_files']=len(entries)
     return dict(status='passed',checks=counts,primary_mean_deposit_gain=gain,regional_metrics=groups,split_conformal=intervals,primary_residual_coverage={'covered':553,'instances':600,'catchments':60})
