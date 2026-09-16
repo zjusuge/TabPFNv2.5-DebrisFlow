@@ -1,0 +1,24 @@
+[
+  {
+    "dataset": "Korea",
+    "kind": "region_holdout",
+    "fold": 1,
+    "region": "Yeoju",
+    "model": "TabPFN",
+    "n_test": 11,
+    "R2": 0.762328597395898,
+    "RMSE": 0.15756694922717812,
+    "MAE": 0.14121170933865201
+  },
+  {
+    "dataset": "Korea",
+    "kind": "region_holdout",
+    "fold": 1,
+    "region": "Yeoju",
+    "model": "RF",
+    "n_test": 11,
+    "R2": 0.810797417843235,
+    "RMSE": 0.14058539045013566,
+    "MAE": 0.11261461714927586
+  }
+]

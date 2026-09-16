@@ -1,0 +1,24 @@
+[
+  {
+    "dataset": "B",
+    "kind": "region_holdout",
+    "fold": 2,
+    "region": "Longchi",
+    "model": "TabPFN",
+    "n_test": 10,
+    "R2": 0.4808272578598035,
+    "RMSE": 0.3756593071754375,
+    "MAE": 0.2800668852718908
+  },
+  {
+    "dataset": "B",
+    "kind": "region_holdout",
+    "fold": 2,
+    "region": "Longchi",
+    "model": "RF",
+    "n_test": 10,
+    "R2": 0.43416937093454533,
+    "RMSE": 0.3921763842068325,
+    "MAE": 0.27813050923648336
+  }
+]

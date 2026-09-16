@@ -1,0 +1,31 @@
+{
+  "results": [
+    {
+      "kind": "transform",
+      "dataset": "A",
+      "fold": 3,
+      "model": "MLP",
+      "transform": "log",
+      "score": "R2",
+      "budget": 30,
+      "best_trial": 23,
+      "inner_score": 0.899362002180708,
+      "warnings": 0,
+      "R2": 0.9293285789031247,
+      "RMSE": 0.20102272822545567,
+      "MAE": 0.15850157098823606
+    }
+  ],
+  "selected_params": {
+    "30": {
+      "hidden_layer_sizes": [
+        36
+      ],
+      "alpha": 0.0964135996610233,
+      "solver": "lbfgs",
+      "max_iter": 2000,
+      "random_state": 20260915
+    }
+  },
+  "seconds": 9.406931161880493
+}

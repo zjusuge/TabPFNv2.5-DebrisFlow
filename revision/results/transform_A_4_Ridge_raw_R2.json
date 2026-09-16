@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "kind": "transform",
+      "dataset": "A",
+      "fold": 4,
+      "model": "Ridge",
+      "transform": "raw",
+      "score": "R2",
+      "budget": 30,
+      "best_trial": 29,
+      "inner_score": 0.40728101814123957,
+      "warnings": 0,
+      "R2": 0.35070373033183777,
+      "RMSE": 0.5049444903327234,
+      "MAE": 0.4420173989959674
+    }
+  ],
+  "selected_params": {
+    "30": {
+      "alpha": 95.86679189861074
+    }
+  },
+  "seconds": 0.09328174591064453
+}

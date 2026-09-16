@@ -1,0 +1,26 @@
+{
+  "results": [
+    {
+      "kind": "transform",
+      "dataset": "A",
+      "fold": 1,
+      "model": "Lasso",
+      "transform": "log",
+      "score": "R2",
+      "budget": 30,
+      "best_trial": 4,
+      "inner_score": 0.9198369808348715,
+      "warnings": 0,
+      "R2": 0.9073907248580146,
+      "RMSE": 0.17672089335356628,
+      "MAE": 0.13692329371999767
+    }
+  ],
+  "selected_params": {
+    "30": {
+      "alpha": 0.03244833997077859,
+      "max_iter": 5000
+    }
+  },
+  "seconds": 0.10016012191772461
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "dataset": "A",
+    "kind": "region_holdout",
+    "fold": 4,
+    "region": "Road 213",
+    "model": "TabPFN",
+    "n_test": 5,
+    "R2": 0.9079602818890542,
+    "RMSE": 0.200365178569453,
+    "MAE": 0.17271631789161496
+  },
+  {
+    "dataset": "A",
+    "kind": "region_holdout",
+    "fold": 4,
+    "region": "Road 213",
+    "model": "RF",
+    "n_test": 5,
+    "R2": 0.958886765705965,
+    "RMSE": 0.13391382944016003,
+    "MAE": 0.12560906498109858
+  }
+]

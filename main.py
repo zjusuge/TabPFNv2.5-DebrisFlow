@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ===========================================================================
-TabPFN (Zero-Shot) vs 10 Baselines (Default + Bayesian Optimised)
+TabPFN (In-context inference) vs 10 Baselines (Default + Bayesian Optimised)
 Debris-Flow Volume Prediction -- Longmen Shan Fault Zone
 ===========================================================================
 
@@ -19,7 +19,7 @@ Experiment design
 -----------------
   - Outer CV  : 10 repeats x 5-fold  (FAST_MODE: 2 repeats x 2-fold)
   - Inner BO  : 3-fold CV with Optuna TPE
-  - TabPFN    : zero-shot, no inner tuning
+  - TabPFN    : in-context inference, no inner tuning
   - Baselines : default and BO-tuned
   - Learning curves: tabular output only (no plots)
 
@@ -40,7 +40,7 @@ Requirements
 # =================================================================
 # QUICK-TEST SWITCHES
 #   FAST_MODE = True  -> rapid sanity check
-#   FAST_MODE = False -> full experiment (paper results)
+#   FAST_MODE = False -> full benchmark rerun; inspect the archived results for reported values
 # =================================================================
 FAST_MODE = False
 
@@ -52,6 +52,8 @@ RUN_LEARNING_CURVES = True
 # 0. Imports
 # =================================================================
 import json
+import os
+import hashlib
 import sys
 import time
 import warnings
@@ -350,19 +352,15 @@ def make_model(name, params=None):
 
 
 def make_tabpfn():
-    """Instantiate TabPFNRegressor with API-compatibility fallbacks."""
-    candidate_kwargs = [
-        dict(n_estimators=TABPFN_N_EST, random_state=SEED),
-        dict(n_estimators=TABPFN_N_EST),
-        dict(random_state=SEED),
-        dict(),
-    ]
-    for kw in candidate_kwargs:
-        try:
-            return TabPFNRegressor(**kw)
-        except TypeError:
-            continue
-    return TabPFNRegressor()
+    """Use an explicitly selected checkpoint and preserve all inference settings."""
+    raw_path = os.environ.get("TABPFN_MODEL_PATH")
+    if not raw_path:
+        raise ValueError("Set TABPFN_MODEL_PATH to the TabPFN-2.5 regression checkpoint.")
+    checkpoint = Path(raw_path).expanduser().resolve()
+    if not checkpoint.is_file():
+        raise FileNotFoundError(checkpoint)
+    return TabPFNRegressor(model_path=checkpoint, n_estimators=TABPFN_N_EST,
+                          random_state=SEED)
 
 
 # =================================================================
@@ -1137,6 +1135,9 @@ def build_grand_summary(all_summaries):
 # 17. Main entry point
 # =================================================================
 def main():
+    checkpoint = os.environ.get("TABPFN_MODEL_PATH")
+    if not checkpoint or not Path(checkpoint).expanduser().is_file():
+        raise ValueError("Set TABPFN_MODEL_PATH to an existing TabPFN-2.5 regression checkpoint before running the benchmark.")
     t_global = datetime.now()
 
     # ---- Configuration banner ----
@@ -1188,6 +1189,9 @@ def main():
         BO_TRIALS=BO_TRIALS,
         LC_SIZES=LC_SIZES,
         TABPFN_N_EST=TABPFN_N_EST,
+        TABPFN_MODEL_PATH=os.environ.get("TABPFN_MODEL_PATH"),
+        checkpoint_sha256=(hashlib.sha256(Path(os.environ["TABPFN_MODEL_PATH"]).expanduser().read_bytes()).hexdigest()
+                           if os.environ.get("TABPFN_MODEL_PATH") else None),
         TARGET=TARGET,
         FEAT_A=FEAT_A,
         FEAT_B=FEAT_B,

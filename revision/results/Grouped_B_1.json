@@ -1,0 +1,24 @@
+[
+  {
+    "dataset": "B",
+    "kind": "region_holdout",
+    "fold": 1,
+    "region": "Gaochuan",
+    "model": "TabPFN",
+    "n_test": 21,
+    "R2": 0.6879015696288394,
+    "RMSE": 0.3912776769277891,
+    "MAE": 0.31536802572751416
+  },
+  {
+    "dataset": "B",
+    "kind": "region_holdout",
+    "fold": 1,
+    "region": "Gaochuan",
+    "model": "RF",
+    "n_test": 21,
+    "R2": 0.7580352435610809,
+    "RMSE": 0.34452071166754117,
+    "MAE": 0.28373949051508546
+  }
+]

@@ -1,0 +1,10 @@
+# Frozen evidence must preserve the exact bytes recorded in revision/SHA256.json.
+/revision/archived/** -text
+/revision/results/** -text
+/revision/data/** -text
+/revision/source_audit/** -text
+/revision/final_audit/** -text
+/revision/figures/** -text
+*.py text eol=lf
+*.md text eol=lf
+requirements.txt text eol=lf

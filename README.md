@@ -1,264 +1,72 @@
-# Sediment-Source Information Controls Small-Sample Debris-Flow Volume Prediction
+# Sediment-source information and small-sample debris-flow volume prediction
 
-> Benchmarking a pretrained tabular foundation model (TabPFN-2.5) against
-> Bayesian-optimised machine-learning baselines for catchment-scale
-> maximum single-event debris-flow volume prediction.
+Code and saved evidence accompanying **Sediment-source information improves small-sample prediction of maximum recorded debris-flow volume with a pretrained tabular model**.
 
-![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)
-![License: MIT](https://img.shields.io/badge/licence-MIT-brightgreen)
-![Seed: 42](https://img.shields.io/badge/seed-42-orange)
+The study evaluates coseismic deposit inventories using 60 Longmen Shan catchments and a separate benchmark of 63 Korean events. Matched feature removal, model comparisons, regional holdouts and prediction intervals support the environmental interpretation. Model performance depends on predictor information, preprocessing and validation protocol.
 
----
+## Start here
 
-## Scope
+- [Reproduction instructions](revision/README.md)
+- [Manuscript evidence map](revision/EVIDENCE_MAP.md)
+- [Additional experiment results](revision/results/)
+- [Archived primary results](revision/archived/)
+- [Updated figures in 900 dpi JPEG format](revision/figures/)
+- [Release changes](CHANGELOG.md)
 
-This repository releases the **primary comparative benchmark code**
-corresponding to Sections 3--4.3 of the paper.
+## Evaluation protocols
 
-### Implemented in `main.py`
+| Analysis | Design | Manuscript evidence |
+|---|---|---|
+| Primary comparison | Ten repetitions of fivefold outer validation; threefold inner validation; 30 TPE trials; raw predictors; 128-member TabPFN | Tables 2 to 4; Figures 5, 7 and 8 |
+| Learning curves | Fixed configurations and outer tests; training sizes 10 to 48 | Figure 9 |
+| Auxiliary diagnostics | Separate seed-42 fivefold evaluation with fixed RF and 128-member TabPFN | Figure 6 |
+| Primary residual intervals | Eight-member TabPFN; internal cross-validation residuals; repeated outer tests | Figure 10 |
+| Korean benchmark | Training and testing within Korean data; fixed conventional configurations | Figure 11 |
+| Transformation and tuning | One fivefold repetition with seed 20260915; threefold inner selection; eight-member TabPFN reference | Tables S4 and S5; Figure S1 |
+| Region holdouts | Six Chinese regions or three Korean districts; RF tuning within training regions | Tables S6 and S7; Figure S2 |
+| Split conformal | Fifteen calibration observations inside each outer training pool; separate fivefold evaluation | Table S8; Figure S3 |
+| Attribution | Full-data SHAP and regional aggregation | Figures 12 and 13; Table S10; Figure S4 |
 
-| Component | Paper section |
-|:----------|:-------------|
-| 10 x 5-fold repeated nested cross-validation | S3.4 |
-| TabPFN-2.5 zero-shot inference | S3.2 |
-| 10 baselines -- default **and** Bayesian-optimised (Optuna TPE) | S3.3 |
-| Paired feature-set ablation (Set A vs Set B) | S4.2 |
-| Learning-curve analysis across training sizes | S4.3 |
-| Repeat-level Wilcoxon signed-rank tests + Holm--Bonferroni correction | S3.4 |
+Archived results establish the reported values. Reruns can change with package versions, model weights, device and numerical implementation. No numerical tolerance is guaranteed. Historical CSV labels such as `zero-shot` remain as archival identifiers; the manuscript uses **in-context inference**.
 
-### Not included in this release
+## Principal results and scope
 
-The following analyses reported in the paper were produced with separate
-scripts and are **not** part of this repository:
+- With deposit information, primary TabPFN mean R² is 0.9190; without it, 0.6692. The mean gain across eleven models is 0.2582.
+- In Longmen Shan region holdouts, TabPFN pooled R² is 0.9216 with deposits and 0.6284 without them. RF gives 0.8783 and 0.6873.
+- Korean district holdout R² is 0.7425 for TabPFN and 0.6185 for RF. The primary Korean comparison is close, and RF has lower MAE.
+- Transformed Lasso and Elastic Net match or slightly exceed the eight-member TabPFN reference on the separate sensitivity partitions.
+- Primary residual intervals cover 553/600 repeated test instances at nominal 90%, or 92.2%. Separate split-conformal coverage is 55/60 for China and 61/63 for Korea. The 600 repeated instances reuse 60 catchments.
 
-- Independent Korean benchmark (S4.5)
-- Cross-validated conformal prediction-interval calibration (S4.4)
-- SHAP-based interpretability analysis (S5)
-- All figures and visualisations
+These are observational prediction results. SHAP describes the fitted model. Direct China-to-Korea transfer was not evaluated. Regional membership is documented; verified individual coordinates, catchment boundaries and time-matched soil and land-use layers are unavailable in the compiled attribute tables.
 
----
+## Installation and use
 
-## Repository Structure
-
-```text
-.
-├── data/
-│   └── longmenshan_60.csv          # Primary dataset (n = 60)
-├── results/                        # Auto-created on first run
-│   ├── FS{A,B}*.csv                # Per-feature-set outputs
-│   ├── comparison_A_vs_B*.csv      # Feature-ablation comparison
-│   ├── grand_summary.csv           # Cross-set combined summary
-│   ├── experiment_config.json      # Run configuration snapshot
-│   └── experiment_log_*.txt        # Full console log
-├── main.py                         # Benchmark script (this release)
-├── requirements.txt                # Python dependencies
-├── .gitignore
-├── LICENSE
-└── README.md
-```
-
----
-
-## Dataset
-
-The primary dataset is the post-earthquake debris-flow compilation by
-[Huang et al. (2020)](https://doi.org/10.1016/j.geomorph.2020.107333),
-covering 60 catchments in the Longmen Shan fault zone (2008--2018).
-
-The CSV file `data/longmenshan_60.csv` must contain the following columns:
-
-| Column | Symbol | Unit | Description |
-|:-------|:-------|:-----|:------------|
-| `A_km2` | *A* | km2 | Catchment area |
-| `H_m` | *H* | m | Relative relief |
-| `L_km` | *L* | km | Main channel length |
-| `D_km` | *D* | km | Fault distance |
-| `J_permille` | *J* | permil | Mean longitudinal channel gradient |
-| `V_landslide_1e4m3` | *V_landslide* | x10^4 m3 | Coseismic landslide-deposit volume |
-| `V0_1e4m3` | *V0* | x10^4 m3 | Max single-event debris-flow volume (**response**) |
-
-An optional `No` column (row index) is dropped automatically if present.
-The modelling target is log10(*V0*).
-
----
-
-## Models
-
-| Model | Family | Tuning mode | Inner loop |
-|:------|:-------|:------------|:-----------|
-| **TabPFN-2.5** | Pretrained tabular foundation model | Zero-shot | None |
-| Ridge | Regularised linear | Default + BO | 3-fold CV, 30 TPE trials |
-| Lasso | Regularised linear | Default + BO | 3-fold CV, 30 TPE trials |
-| Elastic Net | Regularised linear | Default + BO | 3-fold CV, 30 TPE trials |
-| SVR | Kernel | Default + BO | 3-fold CV, 30 TPE trials |
-| KNN | Neighbour-based | Default + BO | 3-fold CV, 30 TPE trials |
-| Random Forest | Tree ensemble | Default + BO | 3-fold CV, 30 TPE trials |
-| GBR | Tree ensemble | Default + BO | 3-fold CV, 30 TPE trials |
-| XGBoost | Tree ensemble | Default + BO | 3-fold CV, 30 TPE trials |
-| AdaBoost | Tree ensemble | Default + BO | 3-fold CV, 30 TPE trials |
-| MLP | Neural network | Default + BO | 3-fold CV, 30 TPE trials |
-
-Feature Set A includes all six predictors; Feature Set B excludes
-*V_landslide*. Both sets share identical outer splits, random seeds,
-and evaluation logic to enable a clean paired comparison.
-
----
-
-## Installation
-
-### Prerequisites
-
-- Python >= 3.9
-- pip (or conda)
-- A Hugging Face account is required for the initial TabPFN-2.5 model
-  weight download. Run `huggingface-cli login` before first use.
-- A CUDA-enabled GPU is **recommended** but not required. TabPFN-2.5
-  runs on CPU if no GPU is detected.
-
-### Install dependencies
+Install the inspected versions in `requirements.txt`. TabPFN package version **6.4.1** and model checkpoint version **2.5** are separate identifiers. Obtain the regression checkpoint from the official provider under its applicable terms. Weights are excluded from this repository.
 
 ```bash
 pip install -r requirements.txt
+python revision/verify_results.py
+python revision/plot_figures.py --part all
 ```
 
-### Verify TabPFN installation
-
-```python
-from tabpfn import TabPFNRegressor
-print("TabPFN OK")
-```
-
----
-
-## Usage
-
-### Quick sanity check (approx. 5--10 min)
-
-Open `main.py` and ensure:
-
-```python
-FAST_MODE = True
-```
-
-Then run:
+New plots go to `revision/rerun_figures`; delivered figures remain in `revision/figures`.
 
 ```bash
-python main.py
+python revision/run_revision.py --part transform
+python revision/run_revision.py --part budget
+python revision/run_revision.py --part foundation --model-path /path/to/tabpfn-v2.5-regressor-v2.5_default.ckpt
 ```
 
-This executes a reduced experiment (2 repeats x 2-fold, 8 BO trials)
-to verify that all dependencies, data paths, and model calls work
-correctly.
+Model reruns write to `revision/rerun_results`. The original primary workflow remains in `main.py`. Set `TABPFN_MODEL_PATH` before running it. `FAST_MODE = True` runs a reduced diagnostic, while `False` runs the full design. This entry point requires explicit weights and preserves the requested seed and ensemble size. New reruns remain separate from the archived evidence.
 
-### Full experiment (paper results)
+## Data and attribution
 
-```python
-FAST_MODE = False
-```
+The datasets are from [Huang et al. (2020)](https://doi.org/10.1016/j.geomorph.2020.107333) and [Lee et al. (2021)](https://doi.org/10.1016/j.enggeo.2020.105979). Their measurement protocols and third-party data rights remain attributable to those sources. Processed records preserve original row identifiers and available regional membership.
 
-```bash
-python main.py
-```
+Chinese volumes are recorded in 10⁴ m³ and Korean volumes in m³; targets are log₁₀ of the respective numeric volume columns. The Chinese response is the maximum recorded episode volume during 2008 to 2018. Korean responses describe historical individual events during 2011 to 2013.
 
-| Setting | Value |
-|:--------|:------|
-| Outer CV | 10 repeats x 5-fold = 50 folds |
-| Inner BO | 3-fold CV, 30 TPE trials per baseline per fold |
-| Learning-curve sizes | 10, 15, 20, 25, 30, 35, 40, 45, 48 |
-| Estimated wall time | 2--6 h (hardware-dependent) |
+For TabPFN, cite [Hollmann et al. (2025)](https://doi.org/10.1038/s41586-024-08328-6) and [Grinsztajn et al. (2025)](https://doi.org/10.48550/arXiv.2511.08667).
 
-All outputs are written to `results/`.
+## Licence
 
----
-
-## Output Files
-
-After a full run, `results/` contains approximately 27 files:
-
-| Category | File pattern | Description |
-|:---------|:-------------|:------------|
-| Config | `experiment_config.json` | Run parameters + package versions (JSON) |
-| CV plan | `outer_cv_plan.csv` | Train/test indices for all 50 folds |
-| Raw results | `FS{A,B}_all_folds.csv` | Per-fold x model x mode long-format records |
-| Fold-level R2 | `FS{A,B}_per_fold_R2.csv` | Wide-format R2 per fold |
-| Repeat-level R2 | `FS{A,B}_per_repeat_R2_{BO,Default}.csv` | Mean R2 per repeat (inferential unit) |
-| Summaries | `FS{A,B}_summary_vs_{BO,Default}.csv` | Descriptive statistics across 50 folds |
-| Statistical tests | `FS{A,B}_wilcoxon_vs_{BO,Default}.csv` | One-sided Wilcoxon + Holm--Bonferroni |
-| Learning curves | `FS{A,B}_learning_curve_{raw,summary}.csv` | R2 across training sizes |
-| Feature ablation | `comparison_A_vs_B_{BO,Default}.csv` | Two-sided paired test, Set A vs Set B |
-| Grand summary | `grand_summary.csv` | Combined cross-set overview |
-| Log | `experiment_log_{FULL,FAST_MODE}.txt` | Full console log |
-
----
-
-## Reproducibility Notes
-
-| Item | Value |
-|:-----|:------|
-| Global random seed | 42 |
-| Outer splits | Deterministic via `RandomState(42)` |
-| BO sampler seed | 42 (Optuna TPE) |
-| Inner CV seed | 42 |
-
-Known sources of minor non-determinism:
-
-- Floating-point ordering may vary across CPU architectures.
-- TabPFN inference on GPU may introduce non-deterministic reductions.
-
-Results should be reproducible to within +/-0.002 R2 on the same hardware.
-
----
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE)
-for details.
-
----
-
-## Citation
-Please cite the dataset source and the TabPFN model:
-
-```bibtex
-@article{huang2020hybrid,
-  author  = {Huang, J. and Hales, T. C. and Huang, R. and Ju, N.
-             and Li, Q. and Huang, Y.},
-  title   = {A hybrid machine-learning model to estimate potential
-             debris-flow volumes},
-  journal = {Geomorphology},
-  volume  = {367},
-  pages   = {107333},
-  year    = {2020},
-  doi     = {10.1016/j.geomorph.2020.107333}
-}
-
-@article{hollmann2025tabpfn,
-  author  = {Hollmann, N. and M\"{u}ller, S. and Purucker, L. and
-             Krishnakumar, A. and K\"{o}rfer, M. and Hoo, S. B. and
-             Schirrmeister, R. T. and Hutter, F.},
-  title   = {Accurate predictions on small data with a tabular
-             foundation model},
-  journal = {Nature},
-  volume  = {637},
-  pages   = {319--326},
-  year    = {2025},
-  doi     = {10.1038/s41586-024-08328-6}
-}
-```
-
----
-
-## Contact
-
-Tianlong Wang
-
-- Ocean College, Zhejiang University, Zhoushan 316000, China
-- School of Civil and Environmental Engineering, Nanyang Technological University, Singapore 637616, Singapore
-- Contact: tianlong_wang@zju.edu.cn
-
-<!--
-Uncomment after acceptance:
-Tianlong Wang -- tianlong_wang@zju.edu.cn
-Ocean College, Zhejiang University
-No. 1 Zheda Road, Dinghai District, Zhoushan 316000, Zhejiang, China
--->
+The MIT licence applies to the authors' repository code. It grants no additional rights to third-party datasets, model weights or provider software. See [LICENSE](LICENSE) and the cited sources.

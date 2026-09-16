@@ -1,0 +1,27 @@
+{
+  "results": [
+    {
+      "kind": "transform",
+      "dataset": "B",
+      "fold": 0,
+      "model": "ElasticNet",
+      "transform": "log",
+      "score": "R2",
+      "budget": 30,
+      "best_trial": 27,
+      "inner_score": 0.687276720681035,
+      "warnings": 1,
+      "R2": 0.32848034383629765,
+      "RMSE": 0.49549013947686027,
+      "MAE": 0.3814862259047018
+    }
+  ],
+  "selected_params": {
+    "30": {
+      "alpha": 0.1826206419938914,
+      "l1_ratio": 0.4366101097340986,
+      "max_iter": 5000
+    }
+  },
+  "seconds": 0.11669635772705078
+}

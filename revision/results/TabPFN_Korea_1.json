@@ -1,0 +1,24 @@
+[
+  {
+    "dataset": "Korea",
+    "kind": "new_random_cv",
+    "fold": 1,
+    "model": "TabPFN",
+    "R2": 0.5703092831914038,
+    "RMSE": 0.1684773593339575,
+    "MAE": 0.14102345970655106
+  },
+  {
+    "dataset": "Korea",
+    "kind": "split_conformal",
+    "fold": 1,
+    "model": "TabPFN",
+    "n_cal": 15,
+    "rank": 15,
+    "coverage": 1.0,
+    "width": 0.8020599618689168,
+    "R2": 0.6025261195474936,
+    "RMSE": 0.16203836734527752,
+    "MAE": 0.14318030385771235
+  }
+]

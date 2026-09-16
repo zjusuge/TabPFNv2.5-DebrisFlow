@@ -1,0 +1,9 @@
+{
+  "nlayers": 18,
+  "features_per_group": 3,
+  "num_thinking_rows": 64,
+  "encoder_type": "mlp",
+  "encoder_mlp_num_layers": 2,
+  "checkpoint_sha256": "6e0308b7e5f3a8325b798b96d986b2b282c3608b1cda6e2991425a2a261d40b8",
+  "reference": "https://arxiv.org/html/2511.08667v1#S3"
+}

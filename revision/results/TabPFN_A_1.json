@@ -1,0 +1,24 @@
+[
+  {
+    "dataset": "A",
+    "kind": "new_random_cv",
+    "fold": 1,
+    "model": "TabPFN",
+    "R2": 0.8871795411236751,
+    "RMSE": 0.1950538768675137,
+    "MAE": 0.1582160085077875
+  },
+  {
+    "dataset": "A",
+    "kind": "split_conformal",
+    "fold": 1,
+    "model": "TabPFN",
+    "n_cal": 15,
+    "rank": 15,
+    "coverage": 1.0,
+    "width": 1.0198209566686427,
+    "R2": 0.8667811845153152,
+    "RMSE": 0.21195488956822586,
+    "MAE": 0.1637199138239814
+  }
+]

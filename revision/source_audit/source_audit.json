@@ -1,0 +1,16 @@
+{
+  "source": "Huang et al. 2020, Geomorphology 367, 107333, Table 2, page 5",
+  "doi": "10.1016/j.geomorph.2020.107333",
+  "records": 60,
+  "numeric_variables": 7,
+  "comparisons": 840,
+  "matches": 840,
+  "mismatches": [],
+  "sample_order_verified": true,
+  "regional_membership_verified": true,
+  "source_pdf_sha256": "bed1fe6bb51912ca1b139ffa31271589df9b1c3d8723b2e09dec9013a911fa13",
+  "source_figure1": "Page 3: map symbols for sample distribution; no numbered point-to-row correspondence",
+  "coordinates": "No per-record coordinate columns in published Table 2",
+  "boundaries": "No complete set of catchment polygons in the inspected paper",
+  "supplement_scope": "Published paper and institutional repository listing checked; no separate coordinate supplement located"
+}

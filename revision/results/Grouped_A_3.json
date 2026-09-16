@@ -1,0 +1,24 @@
+[
+  {
+    "dataset": "A",
+    "kind": "region_holdout",
+    "fold": 3,
+    "region": "Qingping",
+    "model": "TabPFN",
+    "n_test": 8,
+    "R2": 0.9444620748637667,
+    "RMSE": 0.2049573741255929,
+    "MAE": 0.1807274053944894
+  },
+  {
+    "dataset": "A",
+    "kind": "region_holdout",
+    "fold": 3,
+    "region": "Qingping",
+    "model": "RF",
+    "n_test": 8,
+    "R2": 0.9121086431750882,
+    "RMSE": 0.25783496248454646,
+    "MAE": 0.22519085200748967
+  }
+]

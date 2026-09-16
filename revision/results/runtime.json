@@ -1,0 +1,8 @@
+{
+  "tabpfn": "6.4.1",
+  "weight": "tabpfn-v2.5-regressor-v2.5_default.ckpt",
+  "weight_sha256": "6e0308b7e5f3a8325b798b96d986b2b282c3608b1cda6e2991425a2a261d40b8",
+  "n_estimators": 8,
+  "device": "cpu",
+  "seed": 20260915
+}

@@ -1,0 +1,53 @@
+{
+  "results": [
+    {
+      "kind": "budget",
+      "dataset": "B",
+      "fold": 1,
+      "model": "RF",
+      "transform": "raw",
+      "score": "R2",
+      "budget": 30,
+      "best_trial": 26,
+      "inner_score": 0.49045578976301424,
+      "warnings": 0,
+      "R2": 0.7314501719002502,
+      "RMSE": 0.30093527317415475,
+      "MAE": 0.18454884291930052
+    },
+    {
+      "kind": "budget",
+      "dataset": "B",
+      "fold": 1,
+      "model": "RF",
+      "transform": "raw",
+      "score": "R2",
+      "budget": 100,
+      "best_trial": 63,
+      "inner_score": 0.5053293572920862,
+      "warnings": 0,
+      "R2": 0.6303038643193378,
+      "RMSE": 0.35308812471648626,
+      "MAE": 0.22396118543660326
+    }
+  ],
+  "selected_params": {
+    "30": {
+      "n_estimators": 237,
+      "max_depth": 15,
+      "min_samples_split": 10,
+      "min_samples_leaf": 2,
+      "random_state": 20260915,
+      "n_jobs": 2
+    },
+    "100": {
+      "n_estimators": 51,
+      "max_depth": 18,
+      "min_samples_split": 10,
+      "min_samples_leaf": 1,
+      "random_state": 20260915,
+      "n_jobs": 2
+    }
+  },
+  "seconds": 31.289840698242188
+}
