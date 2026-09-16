@@ -212,3 +212,6 @@ __marimo__/
 /revision/rerun_figures/
 .idea/
 *.ckpt
+
+revision/rerun_current_figures/
+revision/rerun_current_inputs/

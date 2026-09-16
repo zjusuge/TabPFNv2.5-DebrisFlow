@@ -8,7 +8,7 @@ This directory preserves the additional analyses and archived results underlying
 - `archived` contains historical primary folds, learning curves, auxiliary predictions, residual intervals and SHAP outputs. Some historical summary tables contain superseded statistics. Revised inference uses underlying folds and `results/paired_statistics_audit.json`.
 - `results` contains additional predictions, trial histories, selected configurations, warnings and derived summaries.
 - `source_audit` contains the complete source table and attribute checks.
-- `figures` contains delivered Fig03 to Fig11 and FigS1 to FigS4 in 900 dpi JPEG format.
+- `figures` contains delivered Fig01 to Fig13 and FigS1 to FigS4 in 900 dpi JPEG format.
 - `plotting` contains adapted original plotting cells and editable original-design Figures 3 and 4.
 - `run_revision.py` runs the additional model analyses.
 - `plot_figures.py` redraws quantitative Figures 5 to 11 and S1 to S4 through the original plotting functions and adapted cells.
@@ -48,3 +48,9 @@ Primary point comparisons use 128 ensemble members; primary residual intervals a
 All 420 Longmen Shan source attributes matched both the modelling workbook and input CSV. Original numbers and six source regions are retained. No coordinates were inferred from map symbols.
 
 The historical primary interval method pools internal cross-validation residuals and uses an interpolated quantile. Its coverage is empirical. Added split-conformal results are identified separately. Original-unit interval files use a 10⁴ m³ multiplier for China and 1 m³ for Korea.
+
+## Confirmed figure layout update
+
+The delivered JPEG figures use the confirmed original-style layout with compact panel spacing, internal legends and no subplot titles. Numerical inputs and experimental protocols are unchanged. Figures 1, 3 and 4 retain their existing designs.
+
+Run `python revision/plot_current_figures.py all` to regenerate Figures 2, 5 to 13 and S1 to S4 from saved inputs. Outputs go to `revision/rerun_current_figures`, including internal font-audit PDFs and previews. Only the 900 dpi JPG files are publication figures. The earlier `plot_figures.py` remains available for historical layout reproduction.

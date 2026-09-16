@@ -12,3 +12,7 @@
 - Removed an unsupported reproducibility tolerance and qualified model rankings by evaluation protocol.
 
 Scientific results were not retrained or selected anew for this repository update. Saved results preserve the existing record. Public metadata omits machine-local paths. Editorial correspondence and review reports are excluded.
+
+## 2026-09-16 confirmed figures
+
+Updated the 17 delivered JPG files and added a portable current-layout plotting entry point. Restored original-style arrangements, moved legends inside panels, aligned panel labels and reduced panel spacing. Saved model results and statistical protocols remain unchanged.
